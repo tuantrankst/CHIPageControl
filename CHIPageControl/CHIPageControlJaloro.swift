@@ -104,7 +104,12 @@ open class CHIPageControlJaloro: CHIBasePageControl {
 
         let offset = dist * percent
         active.frame.origin.x = min.origin.x + offset
-
+        
+        // keep active color when move to next step
+        inactive.enumerated().forEach() { index, layer in
+            let color = index <= Int(progress) ? (self.currentPageTintColor ?? self.tintColor)?.cgColor : self.tintColor(position: index).withAlphaComponent(self.inactiveTransparency).cgColor
+            layer.backgroundColor = color
+        }
     }
 
     override open var intrinsicContentSize: CGSize {
